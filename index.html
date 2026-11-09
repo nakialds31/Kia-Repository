@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Dune Watch Order</title>
+<meta name="description" content="Recommended order to read and watch the Dune books, films and series, with critical rankings.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0b0806;
+    --bg-2: #140e09;
+    --panel: rgba(28, 19, 12, 0.78);
+    --panel-solid: #1c130c;
+    --line: rgba(232, 150, 70, 0.22);
+    --line-strong: rgba(232, 150, 70, 0.55);
+    --text: #f1e4d0;
+    --muted: #b49f84;
+    --dim: #7c6a55;
+    --spice: #ff8a2b;
+    --spice-2: #ffb347;
+    --ember: #e2452b;
+    --cyan: #5fe3e0;
+    --gold: #f4c95d;
+    --ok: #8ee07a;
+    --book: #f4c95d;
+    --film: #5fe3e0;
+    --series: #c49bff;
+    --doc: #ff7a7a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: "Rajdhani", system-ui, sans-serif;
+    font-size: 17px;
+    line-height: 1.5;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  /* --- Atmosphere layers --- */
+  .sky {
+    position: fixed; inset: 0; z-index: -3;
+    background:
+      radial-gradient(ellipse 120% 60% at 50% 115%, rgba(226, 69, 43, 0.45), transparent 60%),
+      radial-gradient(circle at 78% 18%, rgba(255, 179, 71, 0.18), transparent 22%),
+      radial-gradient(circle at 70% 12%, rgba(255, 138, 43, 0.10), transparent 35%),
+      linear-gradient(180deg, #050403 0%, #120a06 45%, #2a1208 85%, #3b1609 100%);
+  }
+  .dunes {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 38vh; z-index: -2;
+    pointer-events: none; opacity: 0.9;
+  }
+  #sand { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+  .scanlines {
+    position: fixed; inset: 0; z-index: 50; pointer-events: none;
+    background: repeating-linear-gradient(0deg, rgba(0,0,0,0.18) 0 1px, transparent 1px 3px);
+    mix-blend-mode: multiply;
+  }
+  .vignette {
+    position: fixed; inset: 0; z-index: 49; pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 55%, rgba(0,0,0,0.65) 100%);
+  }
+
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  /* --- Header / hero --- */
+  header.hero { padding: 56px 0 28px; text-align: center; position: relative; }
+  .hud-top {
+    display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+    font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 0.12em;
+    color: var(--dim); text-transform: uppercase; margin-bottom: 36px;
+    border-bottom: 1px solid var(--line); padding-bottom: 10px;
+  }
+  .hud-top .blink { color: var(--ember); animation: blink 1.6s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0.2; } }
+  .kicker {
+    font-family: "Share Tech Mono", monospace; color: var(--spice);
+    letter-spacing: 0.35em; font-size: 13px; text-transform: uppercase;
+  }
+  h1 {
+    font-family: "Orbitron", sans-serif; font-weight: 900;
+    font-size: clamp(42px, 10vw, 104px); letter-spacing: 0.18em;
+    margin: 10px 0 6px; line-height: 1;
+    background: linear-gradient(180deg, #fff3dc 0%, var(--spice-2) 45%, var(--ember) 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    text-shadow: 0 0 40px rgba(255, 138, 43, 0.25);
+    position: relative; display: inline-block;
+  }
+  h1::after {
+    content: attr(data-text); position: absolute; left: 3px; top: 0;
+    color: var(--cyan); opacity: 0.18; z-index: -1;
+    -webkit-text-fill-color: var(--cyan); background: none;
+    animation: glitch 6s infinite steps(1);
+  }
+  @keyframes glitch {
+    0%, 92%, 100% { transform: translate(0,0); clip-path: inset(0 0 0 0); }
+    93% { transform: translate(-6px, 2px); clip-path: inset(10% 0 55% 0); }
+    95% { transform: translate(5px, -2px); clip-path: inset(60% 0 8% 0); }
+    97% { transform: translate(-3px, 1px); clip-path: inset(30% 0 40% 0); }
+  }
+  .subtitle {
+    font-family: "Orbitron", sans-serif; font-size: clamp(13px, 2.6vw, 18px);
+    letter-spacing: 0.42em; color: var(--muted); text-transform: uppercase; margin: 0;
+  }
+  .lede { max-width: 640px; margin: 22px auto 0; color: var(--muted); font-size: 18px; }
+  .lede em { color: var(--spice-2); font-style: normal; }
+
+  /* --- Countdown --- */
+  .transmission {
+    margin: 30px auto 0; max-width: 560px;
+    border: 1px solid var(--line-strong); background: var(--panel);
+    backdrop-filter: blur(4px); padding: 14px 18px; position: relative;
+    clip-path: polygon(14px 0, 100% 0, 100% calc(100% - 14px), calc(100% - 14px) 100%, 0 100%, 0 14px);
+  }
+  .transmission .lbl {
+    font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 0.2em;
+    color: var(--ember); text-transform: uppercase;
+  }
+  .transmission .what { font-family: "Orbitron", sans-serif; font-size: 15px; letter-spacing: 0.08em; margin: 4px 0 8px; }
+  .clock { display: flex; justify-content: center; gap: 14px; font-family: "Share Tech Mono", monospace; }
+  .clock div { min-width: 56px; }
+  .clock b { display: block; font-size: 28px; color: var(--spice-2); font-weight: 400; text-shadow: 0 0 12px rgba(255,179,71,0.5); }
+  .clock span { font-size: 11px; color: var(--dim); letter-spacing: 0.2em; }
+
+  /* --- Controls --- */
+  .console {
+    position: sticky; top: 0; z-index: 40;
+    background: linear-gradient(180deg, rgba(11,8,6,0.96), rgba(11,8,6,0.88));
+    border-bottom: 1px solid var(--line); backdrop-filter: blur(6px);
+    padding: 12px 0;
+  }
+  .console .wrap { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; justify-content: space-between; }
+  .seg { display: inline-flex; border: 1px solid var(--line-strong); }
+  .seg button {
+    background: transparent; color: var(--muted); border: 0; cursor: pointer;
+    font-family: "Share Tech Mono", monospace; font-size: 13px; letter-spacing: 0.12em;
+    text-transform: uppercase; padding: 8px 12px; min-height: 36px;
+  }
+  .seg button + button { border-left: 1px solid var(--line); }
+  .seg button[aria-pressed="true"] { background: var(--spice); color: #1a0d03; }
+  .seg button:hover:not([aria-pressed="true"]) { color: var(--text); background: rgba(255,138,43,0.08); }
+  .seg button:focus-visible, .check:focus-visible, .reset:focus-visible { outline: 2px solid var(--cyan); outline-offset: 2px; }
+  .progress { flex: 1 1 220px; min-width: 200px; font-family: "Share Tech Mono", monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; }
+  .bar { height: 6px; background: rgba(255,255,255,0.06); margin-top: 6px; position: relative; overflow: hidden; }
+  .bar i { position: absolute; inset: 0 auto 0 0; width: 0; background: linear-gradient(90deg, var(--ember), var(--spice-2)); box-shadow: 0 0 10px var(--spice); transition: width .5s ease; }
+  .reset { background: none; border: 0; color: var(--dim); font: inherit; cursor: pointer; text-decoration: underline; padding: 0; margin-left: 6px; }
+  .reset:hover { color: var(--ember); }
+
+  /* --- Phases & cards --- */
+  main { padding: 28px 0 80px; }
+  .phase { margin: 40px 0 10px; display: flex; align-items: baseline; gap: 14px; flex-wrap: wrap; }
+  .phase .num { font-family: "Share Tech Mono", monospace; color: var(--ember); font-size: 13px; letter-spacing: 0.25em; }
+  .phase h2 { font-family: "Orbitron", sans-serif; font-size: clamp(18px, 3.6vw, 26px); letter-spacing: 0.14em; margin: 0; text-transform: uppercase; }
+  .phase p { flex-basis: 100%; margin: 4px 0 0; color: var(--muted); }
+  .phase::after { content: ""; flex: 1; height: 1px; background: linear-gradient(90deg, var(--line-strong), transparent); min-width: 40px; }
+
+  .list { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+  .card {
+    position: relative; display: grid; grid-template-columns: 64px 1fr 150px; gap: 16px;
+    background: var(--panel); border: 1px solid var(--line); padding: 18px 18px 18px 0;
+    backdrop-filter: blur(3px);
+    clip-path: polygon(0 0, calc(100% - 18px) 0, 100% 18px, 100% 100%, 18px 100%, 0 calc(100% - 18px));
+    transition: border-color .2s, transform .2s, background .2s;
+  }
+  .card:hover { border-color: var(--line-strong); transform: translateX(3px); background: rgba(36, 24, 14, 0.85); }
+  .card::before {
+    content: ""; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent, var(--spice));
+    box-shadow: 0 0 14px var(--accent, var(--spice));
+  }
+  .card.done { opacity: 0.55; }
+  .card.done .title { text-decoration: line-through; text-decoration-color: var(--ember); }
+  .card[data-type="book"] { --accent: var(--book); }
+  .card[data-type="film"] { --accent: var(--film); }
+  .card[data-type="series"] { --accent: var(--series); }
+  .card[data-type="doc"] { --accent: var(--doc); }
+
+  .idx { text-align: center; font-family: "Orbitron", sans-serif; font-weight: 700; font-size: 26px; color: var(--accent); padding-top: 2px; }
+  .idx small { display: block; font-family: "Share Tech Mono", monospace; font-size: 10px; font-weight: 400; color: var(--dim); letter-spacing: 0.15em; margin-top: 2px; }
+  .meta { display: flex; flex-wrap: wrap; gap: 6px 10px; align-items: center; font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+  .tag { border: 1px solid var(--accent); color: var(--accent); padding: 1px 7px; }
+  .tier { padding: 1px 7px; background: rgba(255,255,255,0.05); }
+  .tier.essential { background: var(--ember); color: #fff3e6; }
+  .tier.recommended { background: rgba(255,138,43,0.2); color: var(--spice-2); }
+  .tier.optional { background: rgba(255,255,255,0.06); color: var(--muted); }
+  .tier.completist { background: transparent; border: 1px dashed var(--dim); color: var(--dim); }
+  .title { font-family: "Orbitron", sans-serif; font-size: clamp(17px, 2.6vw, 21px); font-weight: 700; letter-spacing: 0.04em; margin: 6px 0 2px; line-height: 1.25; }
+  .by { color: var(--muted); font-size: 15px; margin: 0 0 8px; }
+  .why { margin: 0 0 8px; }
+  .note { margin: 0; font-size: 15px; color: var(--muted); border-left: 2px solid var(--line-strong); padding-left: 10px; }
+  .note b { color: var(--spice-2); font-weight: 600; }
+
+  .score { text-align: right; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  .score .big { font-family: "Orbitron", sans-serif; font-size: 34px; font-weight: 900; line-height: 1; color: var(--text); }
+  .score .big small { font-size: 13px; color: var(--dim); font-weight: 500; }
+  .score .pending { font-family: "Share Tech Mono", monospace; font-size: 13px; color: var(--ember); letter-spacing: 0.15em; animation: blink 1.6s steps(2) infinite; }
+  .meter { width: 100%; max-width: 130px; height: 5px; background: rgba(255,255,255,0.07); }
+  .meter i { display: block; height: 100%; background: linear-gradient(90deg, var(--ember), var(--spice-2)); }
+  .verdict { font-family: "Share Tech Mono", monospace; font-size: 11px; color: var(--muted); letter-spacing: 0.12em; text-transform: uppercase; }
+  .stats { font-family: "Share Tech Mono", monospace; font-size: 11px; color: var(--dim); }
+  .check {
+    margin-top: 4px; display: inline-flex; align-items: center; gap: 6px; cursor: pointer;
+    font-family: "Share Tech Mono", monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); background: transparent; border: 1px solid var(--line-strong); padding: 6px 10px; min-height: 34px;
+  }
+  .check:hover { color: var(--text); border-color: var(--spice); }
+  .check[aria-pressed="true"] { color: #10220c; background: var(--ok); border-color: var(--ok); }
+
+  .rank-medal { position: absolute; right: 26px; top: -1px; font-family: "Share Tech Mono", monospace; font-size: 10px; letter-spacing: 0.2em; background: var(--gold); color: #1a1003; padding: 2px 8px; }
+
+  .empty { text-align: center; color: var(--dim); font-family: "Share Tech Mono", monospace; padding: 40px 0; }
+
+  .legend { display: flex; flex-wrap: wrap; gap: 8px 18px; margin-top: 18px; justify-content: center; font-family: "Share Tech Mono", monospace; font-size: 12px; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .legend span::before { content: ""; display: inline-block; width: 10px; height: 10px; margin-right: 6px; background: var(--c); box-shadow: 0 0 8px var(--c); vertical-align: -1px; }
+
+  footer { border-top: 1px solid var(--line); padding: 28px 0 60px; color: var(--dim); font-size: 14px; }
+  footer p { margin: 0 0 10px; }
+  footer .quote { font-family: "Orbitron", sans-serif; letter-spacing: 0.08em; color: var(--muted); font-size: 14px; }
+
+  @media (max-width: 720px) {
+    .card { grid-template-columns: 46px 1fr; padding: 16px 14px 16px 0; gap: 10px; }
+    .idx { font-size: 20px; }
+    .score { grid-column: 2; flex-direction: row; flex-wrap: wrap; align-items: center; justify-content: flex-start; text-align: left; gap: 8px 12px; }
+    .score .big { font-size: 26px; }
+    .meter { width: 90px; }
+    .rank-medal { right: 22px; }
+    .console { position: static; }
+    .console .wrap { justify-content: flex-start; }
+    .seg button { padding: 8px 9px; font-size: 12px; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="sky" aria-hidden="true"></div>
+<svg class="dunes" viewBox="0 0 1440 400" preserveAspectRatio="none" aria-hidden="true">
+  <defs>
+    <linearGradient id="d1" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5a230e"/><stop offset="1" stop-color="#1a0b05"/></linearGradient>
+    <linearGradient id="d2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2e1308"/><stop offset="1" stop-color="#0b0604"/></linearGradient>
+  </defs>
+  <path d="M0 220 C 180 140, 320 170, 480 200 S 820 120, 1000 170 S 1300 230, 1440 160 V400 H0Z" fill="url(#d1)" opacity="0.75"/>
+  <!-- ruined spires on the horizon -->
+  <g fill="#160904" opacity="0.9">
+    <rect x="1080" y="96" width="14" height="90"/><rect x="1100" y="120" width="8" height="70"/><polygon points="1072,96 1087,60 1102,96"/>
+    <rect x="240" y="130" width="10" height="60"/><rect x="256" y="150" width="18" height="40"/>
+  </g>
+  <path d="M0 300 C 220 240, 420 290, 640 270 S 1040 210, 1240 260 S 1400 300, 1440 280 V400 H0Z" fill="url(#d2)"/>
+</svg>
+<canvas id="sand" aria-hidden="true"></canvas>
+<div class="vignette" aria-hidden="true"></div>
+<div class="scanlines" aria-hidden="true"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="hud-top">
+      <span>Imperial Archive // Arrakis Sector</span>
+      <span class="blink">&#9679; Storm Warning: Coriolis Front</span>
+      <span>Year 10,191 A.G.</span>
+    </div>
+    <div class="kicker">Transmission // Mentat Directive</div>
+    <h1 data-text="DUNE">DUNE</h1>
+    <p class="subtitle">The Spice Path Protocol</p>
+    <p class="lede">The recommended order to <em>read</em> the books and <em>watch</em> the films and series, from first spice-trance to final scattering. Every entry is ranked by its critical standing.</p>
+    <div class="transmission" id="transmission">
+      <div class="lbl">&#9650; Incoming signal</div>
+      <div class="what">DUNE: PART THREE &mdash; in theaters Dec 18, 2026</div>
+      <div class="clock" id="clock" aria-live="off"></div>
+    </div>
+    <div class="legend" aria-label="Legend">
+      <span style="--c: var(--book)">Book</span>
+      <span style="--c: var(--film)">Film</span>
+      <span style="--c: var(--series)">TV Series</span>
+      <span style="--c: var(--doc)">Documentary</span>
+    </div>
+  </div>
+</header>
+
+<nav class="console" aria-label="View controls">
+  <div class="wrap">
+    <div class="seg" role="group" aria-label="View">
+      <button type="button" data-view="path" aria-pressed="true">Sequence</button>
+      <button type="button" data-view="rank" aria-pressed="false">Rankings</button>
+    </div>
+    <div class="seg" role="group" aria-label="Filter">
+      <button type="button" data-filter="all" aria-pressed="true">All</button>
+      <button type="button" data-filter="read" aria-pressed="false">Read</button>
+      <button type="button" data-filter="watch" aria-pressed="false">Watch</button>
+      <button type="button" data-filter="core" aria-pressed="false">Essentials</button>
+    </div>
+    <div class="progress">
+      <span id="progress-text">0 / 0 complete</span><button type="button" class="reset" id="reset">reset</button>
+      <div class="bar"><i id="progress-bar"></i></div>
+    </div>
+  </div>
+</nav>
+
+<main>
+  <div class="wrap" id="content"></div>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="quote">&ldquo;Fear is the mind-killer.&rdquo; &mdash; Litany Against Fear</p>
+    <p>Critical Standing scores are an editorial synthesis of how each entry is generally regarded by critics, awards bodies and longtime readers. They are not taken from a single aggregator. Review-aggregator figures (Rotten Tomatoes, Metacritic) are shown where noted and may drift over time.</p>
+    <p>Your progress is saved in this browser only.</p>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  // ---------- DATA ----------
+  // phase: 1-5 main path; 6 = side quests & archives
+  var PHASES = [
+    { id: 1, name: "Arrakis Awakens", blurb: "Start with the source, then see it rendered at full scale." },
+    { id: 2, name: "The Messiah's Shadow", blurb: "The hero becomes the thing he feared. Read it before the final film of the trilogy." },
+    { id: 3, name: "The Golden Path", blurb: "The story jumps forward and the scope goes from one planet to all of humanity's future." },
+    { id: 4, name: "The Scattering", blurb: "1,500 years later. Frank Herbert's final two novels, and his strangest." },
+    { id: 5, name: "Epilogue Protocol", blurb: "For completists: the sons-of-Dune ending, built from Frank Herbert's notes for a seventh book." },
+    { id: 6, name: "Side Quests & Lost Archives", blurb: "Prequels, older adaptations and a documentary. Take them in any order once you've finished Phase I." }
+  ];
+
+  var ITEMS = [
+    { id: "dune-book", phase: 1, type: "book", title: "Dune", year: "1965", by: "Frank Herbert",
+      why: "Paul Atreides, a desert planet, a stolen throne and the most valuable substance in the universe. Everything else builds on this book.",
+      note: "<b>Read first.</b> The films are excellent, but the book's inner monologues, politics and ecology are what make the sequels land.",
+      score: 10, verdict: "Masterpiece", tier: "essential", stats: "Hugo Award · Inaugural Nebula Award" },
+
+    { id: "dune-2021", phase: 1, type: "film", title: "Dune: Part One", year: "2021", by: "dir. Denis Villeneuve",
+      why: "The first half of the novel at massive scale: Arrakis, the Harkonnen ambush and Paul's flight into the deep desert.",
+      note: "<b>Watch right after the book.</b> It covers roughly the first half of the novel.",
+      score: 8.6, verdict: "Acclaimed", tier: "essential", stats: "6 Oscars · RT 83% · MC 74" },
+
+    { id: "dune-2024", phase: 1, type: "film", title: "Dune: Part Two", year: "2024", by: "dir. Denis Villeneuve",
+      why: "Paul joins the Fremen, rides a sandworm and steps toward a jihad he has seen in his visions. Widely called one of the best sci-fi sequels ever made.",
+      note: "<b>The best-reviewed Dune adaptation.</b> It changes Chani's arc in ways that set up Messiah.",
+      score: 9.2, verdict: "Modern classic", tier: "essential", stats: "Best Picture nominee · 2 Oscars · RT 92% · MC 79" },
+
+    { id: "messiah-book", phase: 2, type: "book", title: "Dune Messiah", year: "1969", by: "Frank Herbert",
+      why: "Twelve years into Emperor Paul's reign, a conspiracy closes in. A short, bleak book that takes apart the 'chosen one' story.",
+      note: "<b>Essential.</b> Read it before Part Three: Herbert wrote it to correct readers who saw Paul as a hero.",
+      score: 8.0, verdict: "Vital sequel", tier: "essential", stats: "Divisive on release, reassessed since" },
+
+    { id: "dune-2026", phase: 2, type: "film", title: "Dune: Part Three", year: "Dec 2026", by: "dir. Denis Villeneuve",
+      why: "Villeneuve's adaptation of Dune Messiah, which closes his trilogy.",
+      note: "<b>Signal incoming.</b> Release scheduled for December 18, 2026. Not yet rated.",
+      score: null, verdict: "Awaiting reviews", tier: "essential", stats: "Adapts Dune Messiah" },
+
+    { id: "children-book", phase: 3, type: "book", title: "Children of Dune", year: "1976", by: "Frank Herbert",
+      why: "Paul's twins Leto II and Ghanima inherit a decaying empire. Leto makes a terrible choice that defines the rest of the saga.",
+      note: "<b>Essential.</b> Many readers rank it second only to Dune.",
+      score: 8.5, verdict: "Superb", tier: "essential", stats: "Hugo nominee · Major hardcover bestseller" },
+
+    { id: "children-tv", phase: 3, type: "series", title: "Frank Herbert's Children of Dune", year: "2003", by: "Sci Fi Channel miniseries",
+      why: "A three-part miniseries covering both Dune Messiah and Children of Dune. It's the only screen version of book three.",
+      note: "<b>Recommended.</b> Dated effects but a strong cast, including an early James McAvoy as Leto II.",
+      score: 7.0, verdict: "Well liked", tier: "recommended", stats: "Primetime Emmy winner (VFX)" },
+
+    { id: "god-emperor-book", phase: 3, type: "book", title: "God Emperor of Dune", year: "1981", by: "Frank Herbert",
+      why: "3,500 years later, Leto II rules as a part-human, part-sandworm tyrant. It's mostly a long philosophical dialogue, and it's brilliant.",
+      note: "<b>Essential.</b> The most polarizing book in the series. Readers either love it or bounce off it, and critics lean toward love.",
+      score: 8.3, verdict: "Bold & divisive", tier: "essential", stats: "Cult favorite" },
+
+    { id: "heretics-book", phase: 4, type: "book", title: "Heretics of Dune", year: "1984", by: "Frank Herbert",
+      why: "1,500 years after the God Emperor, the Bene Gesserit face a new threat returning from the Scattering.",
+      note: "<b>Recommended.</b> It starts slowly and feels like a soft reboot, but the second half pays off.",
+      score: 7.2, verdict: "Solid", tier: "recommended", stats: "Late-career Herbert" },
+
+    { id: "chapterhouse-book", phase: 4, type: "book", title: "Chapterhouse: Dune", year: "1985", by: "Frank Herbert",
+      why: "With Arrakis gone, the Sisterhood plans to survive the Honored Matres and seed a new desert.",
+      note: "<b>Recommended.</b> It ends on a cliffhanger. Herbert died in 1986 before he could write book seven.",
+      score: 7.4, verdict: "Haunting finale", tier: "recommended", stats: "Frank Herbert's last Dune novel" },
+
+    { id: "hunters-book", phase: 5, type: "book", title: "Hunters of Dune", year: "2006", by: "Brian Herbert & Kevin J. Anderson",
+      why: "Picks up from Chapterhouse's cliffhanger, based on Frank Herbert's outline for 'Dune 7'.",
+      note: "<b>Completist.</b> Readers who want closure tend to like it more than critics do.",
+      score: 5.0, verdict: "Mixed", tier: "completist", stats: "Expanded universe" },
+
+    { id: "sandworms-book", phase: 5, type: "book", title: "Sandworms of Dune", year: "2007", by: "Brian Herbert & Kevin J. Anderson",
+      why: "The conclusion of the Herbert-and-Anderson continuation, in which the final enemy is revealed.",
+      note: "<b>Completist.</b> It resolves the saga, but the reveal is debated.",
+      score: 5.0, verdict: "Mixed", tier: "completist", stats: "Expanded universe" },
+
+    // ---- Side quests & archives ----
+    { id: "jodo-doc", phase: 6, type: "doc", title: "Jodorowsky's Dune", year: "2013", by: "dir. Frank Pavich",
+      why: "The story of the most famous sci-fi film never made, with Giger, Moebius, Dalí and Pink Floyd attached.",
+      note: "<b>Recommended.</b> Watch any time. It's about ambition and failure more than Dune itself.",
+      score: 8.8, verdict: "Critics' darling", tier: "recommended", stats: "RT 98%" },
+
+    { id: "prophecy-tv", phase: 6, type: "series", title: "Dune: Prophecy", year: "2024–", by: "HBO series",
+      why: "10,000 years before Paul, the Harkonnen sisters Valya and Tula shape the order that becomes the Bene Gesserit.",
+      note: "<b>Optional prequel.</b> Best after Part Two. Loosely based on the novel Sisterhood of Dune.",
+      score: 7.0, verdict: "Generally positive", tier: "optional", stats: "Renewed for Season 2" },
+
+    { id: "herbert-2000-tv", phase: 6, type: "series", title: "Frank Herbert's Dune", year: "2000", by: "Sci Fi Channel miniseries",
+      why: "A six-hour adaptation of the first novel, closer to the book's plot than any film.",
+      note: "<b>Optional.</b> Limited budget, but more faithful to the book. Watch after Book 1 if you want more Dune.",
+      score: 6.5, verdict: "Respectable", tier: "optional", stats: "2 Primetime Emmys" },
+
+    { id: "lynch-1984", phase: 6, type: "film", title: "Dune", year: "1984", by: "dir. David Lynch",
+      why: "A strange, baroque and heavily cut version of the first book. It flopped on release and became a cult classic.",
+      note: "<b>Optional curiosity.</b> Watch it for its production design and to see Sting in a winged codpiece.",
+      score: 5.5, verdict: "Cult classic", tier: "optional", stats: "MC 41 · Panned on release" },
+
+    { id: "prelude-books", phase: 6, type: "book", title: "Prelude to Dune trilogy", year: "1999–2001", by: "Brian Herbert & Kevin J. Anderson",
+      why: "House Atreides, House Harkonnen and House Corrino tell the stories of Leto, Jessica and the Baron in the years before Dune.",
+      note: "<b>Completist.</b> The most readable of the prequels.",
+      score: 5.5, verdict: "Mixed", tier: "completist", stats: "Expanded universe" },
+
+    { id: "caladan-books", phase: 6, type: "book", title: "The Caladan trilogy", year: "2020–2022", by: "Brian Herbert & Kevin J. Anderson",
+      why: "Duke of Caladan, Lady of Caladan and Heir of Caladan lead directly into the first page of Dune.",
+      note: "<b>Completist.</b> Read it as a lead-in if you're rereading Dune.",
+      score: 5.2, verdict: "Mixed", tier: "completist", stats: "Expanded universe" },
+
+    { id: "schools-books", phase: 6, type: "book", title: "Great Schools of Dune trilogy", year: "2012–2016", by: "Brian Herbert & Kevin J. Anderson",
+      why: "Sisterhood, Mentats and Navigators of Dune: the origins of the Bene Gesserit, the Mentats and the Spacing Guild.",
+      note: "<b>Completist.</b> Source material for Dune: Prophecy.",
+      score: 5.0, verdict: "Mixed", tier: "completist", stats: "Expanded universe" },
+
+    { id: "legends-books", phase: 6, type: "book", title: "Legends of Dune trilogy", year: "2002–2004", by: "Brian Herbert & Kevin J. Anderson",
+      why: "The Butlerian Jihad: humanity's war against the thinking machines, 10,000 years before Paul.",
+      note: "<b>Completist.</b> Big ideas and pulpy execution. Fans argue about it the most.",
+      score: 4.8, verdict: "Divisive", tier: "completist", stats: "Expanded universe" },
+
+    { id: "heroes-books", phase: 6, type: "book", title: "Heroes of Dune: Paul & Winds", year: "2008–2009", by: "Brian Herbert & Kevin J. Anderson",
+      why: "Paul of Dune and The Winds of Dune fill in the gaps around Dune Messiah.",
+      note: "<b>Completist.</b> The lowest-rated part of the expanded universe.",
+      score: 4.5, verdict: "Weak", tier: "completist", stats: "Expanded universe" }
+  ];
+
+  var TYPE_LABEL = { book: "Book", film: "Film", series: "Series", doc: "Documentary" };
+  var TIER_LABEL = { essential: "Essential", recommended: "Recommended", optional: "Optional", completist: "Completist" };
+
+  // ---------- STATE ----------
+  var STORE_KEY = "dune-spice-path-v1";
+  var state = { view: "path", filter: "all", done: {} };
+  try {
+    var saved = JSON.parse(localStorage.getItem(STORE_KEY) || "null");
+    if (saved && typeof saved === "object") {
+      if (saved.done && typeof saved.done === "object") state.done = saved.done;
+      if (saved.view === "path" || saved.view === "rank") state.view = saved.view;
+      if (["all", "read", "watch", "core"].indexOf(saved.filter) !== -1) state.filter = saved.filter;
+    }
+  } catch (e) { /* storage unavailable */ }
+  function persist() {
+    try { localStorage.setItem(STORE_KEY, JSON.stringify(state)); } catch (e) { /* ignore */ }
+  }
+
+  // ---------- RENDER ----------
+  var content = document.getElementById("content");
+
+  function passesFilter(it) {
+    if (state.filter === "read") return it.type === "book";
+    if (state.filter === "watch") return it.type !== "book";
+    if (state.filter === "core") return it.tier === "essential";
+    return true;
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; });
+  }
+
+  function card(it, label, sub, medal) {
+    var done = !!state.done[it.id];
+    var scoreHtml = it.score == null
+      ? '<div class="pending">// PENDING</div>'
+      : '<div class="big">' + it.score.toFixed(1) + '<small>/10</small></div>' +
+        '<div class="meter" aria-hidden="true"><i style="width:' + (it.score * 10) + '%"></i></div>';
+    return '<li class="card' + (done ? " done" : "") + '" data-type="' + it.type + '">' +
+      (medal ? '<span class="rank-medal">' + medal + '</span>' : "") +
+      '<div class="idx">' + label + (sub ? '<small>' + sub + '</small>' : "") + '</div>' +
+      '<div>' +
+        '<div class="meta"><span class="tag">' + TYPE_LABEL[it.type] + '</span><span>' + esc(it.year) + '</span>' +
+        '<span class="tier ' + it.tier + '">' + TIER_LABEL[it.tier] + '</span></div>' +
+        '<h3 class="title">' + esc(it.title) + '</h3>' +
+        '<p class="by">' + esc(it.by) + '</p>' +
+        '<p class="why">' + esc(it.why) + '</p>' +
+        '<p class="note">' + it.note + '</p>' +
+      '</div>' +
+      '<div class="score">' +
+        '<div class="verdict">Critical standing</div>' + scoreHtml +
+        '<div class="verdict">' + esc(it.verdict) + '</div>' +
+        '<div class="stats">' + esc(it.stats) + '</div>' +
+        '<button type="button" class="check" data-id="' + it.id + '" aria-pressed="' + done + '">' +
+          (done ? "&#10003; Complete" : (it.type === "book" ? "Mark read" : "Mark watched")) +
+        '</button>' +
+      '</div>' +
+    '</li>';
+  }
+
+  function renderPath() {
+    var html = "";
+    var step = 0;
+    PHASES.forEach(function (ph) {
+      var items = ITEMS.filter(function (it) { return it.phase === ph.id; });
+      var shown = items.filter(passesFilter);
+      if (ph.id <= 5) {
+        // keep step numbers stable regardless of filter
+        items.forEach(function (it) { it._step = ++step; });
+      }
+      if (!shown.length) return;
+      html += '<section><div class="phase"><span class="num">' + (ph.id <= 5 ? "PHASE 0" + ph.id : "ARCHIVE") +
+        '</span><h2>' + ph.name + '</h2><p>' + ph.blurb + '</p></div><ol class="list">';
+      shown.forEach(function (it) {
+        html += ph.id <= 5 ? card(it, String(it._step).padStart(2, "0"), "STEP") : card(it, "&#9670;", "SIDE");
+      });
+      html += "</ol></section>";
+    });
+    return html || '<p class="empty">// NO SIGNAL — no entries match this filter</p>';
+  }
+
+  function renderRank() {
+    var list = ITEMS.filter(passesFilter).slice().sort(function (a, b) {
+      var sa = a.score == null ? -1 : a.score, sb = b.score == null ? -1 : b.score;
+      return sb - sa;
+    });
+    if (!list.length) return '<p class="empty">// NO SIGNAL</p>';
+    var html = '<section><div class="phase"><span class="num">LEADERBOARD</span><h2>Critical Rankings</h2>' +
+      '<p>Every entry sorted from highest to lowest critical standing. Unreleased titles are listed last.</p></div><ol class="list">';
+    var rank = 0;
+    list.forEach(function (it) {
+      if (it.score == null) {
+        html += card(it, "??", "TBD");
+      } else {
+        rank++;
+        var medal = rank === 1 ? "#1 &middot; APEX" : rank === 2 ? "#2" : rank === 3 ? "#3" : "";
+        html += card(it, String(rank).padStart(2, "0"), "RANK", medal);
+      }
+    });
+    return html + "</ol></section>";
+  }
+
+  function updateProgress() {
+    var pool = ITEMS.filter(passesFilter);
+    var n = pool.filter(function (it) { return state.done[it.id]; }).length;
+    document.getElementById("progress-text").textContent =
+      n + " / " + pool.length + " complete" + (state.filter !== "all" ? " (filtered)" : "");
+    document.getElementById("progress-bar").style.width = (pool.length ? (n / pool.length) * 100 : 0) + "%";
+  }
+
+  function render() {
+    content.innerHTML = state.view === "rank" ? renderRank() : renderPath();
+    document.querySelectorAll("[data-view]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.view === state.view)); });
+    document.querySelectorAll("[data-filter]").forEach(function (b) { b.setAttribute("aria-pressed", String(b.dataset.filter === state.filter)); });
+    updateProgress();
+  }
+
+  document.querySelectorAll("[data-view]").forEach(function (b) {
+    b.addEventListener("click", function () { state.view = b.dataset.view; persist(); render(); });
+  });
+  document.querySelectorAll("[data-filter]").forEach(function (b) {
+    b.addEventListener("click", function () { state.filter = b.dataset.filter; persist(); render(); });
+  });
+  content.addEventListener("click", function (e) {
+    var btn = e.target.closest(".check");
+    if (!btn) return;
+    var id = btn.dataset.id;
+    if (state.done[id]) delete state.done[id]; else state.done[id] = true;
+    persist(); render();
+    var again = content.querySelector('.check[data-id="' + id + '"]');
+    if (again) again.focus();
+  });
+  document.getElementById("reset").addEventListener("click", function () {
+    if (confirm("Clear all progress?")) { state.done = {}; persist(); render(); }
+  });
+
+  render();
+
+  // ---------- COUNTDOWN ----------
+  var target = new Date("2026-12-18T00:00:00").getTime();
+  var clock = document.getElementById("clock");
+  function tick() {
+    var ms = target - Date.now();
+    if (ms <= 0) {
+      clock.innerHTML = '<div><b>NOW</b><span>IN THEATERS</span></div>';
+      return;
+    }
+    var d = Math.floor(ms / 864e5), h = Math.floor(ms / 36e5) % 24, m = Math.floor(ms / 6e4) % 60, s = Math.floor(ms / 1e3) % 60;
+    function p(v) { return String(v).padStart(2, "0"); }
+    clock.innerHTML =
+      '<div><b>' + d + '</b><span>DAYS</span></div>' +
+      '<div><b>' + p(h) + '</b><span>HRS</span></div>' +
+      '<div><b>' + p(m) + '</b><span>MIN</span></div>' +
+      '<div><b>' + p(s) + '</b><span>SEC</span></div>';
+    setTimeout(tick, 1000);
+  }
+  tick();
+
+  // ---------- SANDSTORM ----------
+  var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var cv = document.getElementById("sand");
+  var ctx = cv.getContext && cv.getContext("2d");
+  if (!ctx) return;
+  var W, H, grains = [];
+  function size() {
+    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = window.innerWidth; H = window.innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    var count = Math.round(Math.min(220, (W * H) / 7000));
+    grains = [];
+    for (var i = 0; i < count; i++) grains.push(spawn(true));
+  }
+  function spawn(anywhere) {
+    return {
+      x: anywhere ? Math.random() * W : -10,
+      y: Math.random() * H,
+      v: 0.6 + Math.random() * 2.4,
+      r: Math.random() * 1.6 + 0.3,
+      a: Math.random() * 0.5 + 0.15,
+      w: Math.random() * Math.PI * 2
+    };
+  }
+  function frame() {
+    ctx.clearRect(0, 0, W, H);
+    for (var i = 0; i < grains.length; i++) {
+      var g = grains[i];
+      g.x += g.v; g.w += 0.02; g.y += Math.sin(g.w) * 0.3 + 0.08;
+      if (g.x > W + 10 || g.y > H + 10) grains[i] = g = spawn(false);
+      ctx.fillStyle = "rgba(255," + (150 + (g.r * 40 | 0)) + ",80," + g.a + ")";
+      ctx.fillRect(g.x, g.y, g.r * 2.2, g.r);
+    }
+    if (!reduce) requestAnimationFrame(frame);
+  }
+  window.addEventListener("resize", size);
+  size(); frame();
+})();
+</script>
+</body>
+</html>
